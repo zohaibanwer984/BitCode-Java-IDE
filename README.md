@@ -1,4 +1,3 @@
-[![Maven Central](https://img.shields.io/maven-central/v/zohaibanwer984/BitCode-Java-IDE.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%zohaibanwer984%22%20AND%20a:%BitCode-Java-IDE%22)
 # BitCode IDE
 
 ## Overview
