@@ -39,9 +39,8 @@ public class CommandLine {
      */
     public static void run(File file) {
         String fileName = file.getName();
-        ClassLoader classLoader = CommandLine.class.getClassLoader();
         // Access a resource file
-        File scriptFile = new File(classLoader.getResource("runjava.exe").getFile());
+        File scriptFile = new File(CommandLine.class.getResource("/scripts/runjava.exe").getFile());
         String fileDirectory = file.getParent();
         try {
            Runtime.getRuntime().exec(new String[]{
@@ -62,9 +61,8 @@ public class CommandLine {
     public static String compile(File file) {
         String result;
         String fileDirectory = file.getParent();
-        ClassLoader classLoader = CommandLine.class.getClassLoader();
         // Access a resource file
-        File Scripfile = new File(classLoader.getResource("compile.bat").getFile());
+        File Scripfile = new File(CommandLine.class.getResource("/scripts/compile.bat").getFile());
         
         try {
             String[] command = new String[]{"cmd", "/c", Scripfile.getAbsolutePath() + " \"" +
