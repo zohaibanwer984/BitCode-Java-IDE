@@ -1,0 +1,2 @@
+# BitCode-Java-IDE
+ BitCode IDE is a lightweight and versatile integrated development environment for Java programming. It provides a user-friendly interface, syntax highlighting, and essential coding features to streamline your Java development workflow.  Features: - Tabbed editor for managing multiple files. - Syntax highlighting for Java code. - Integrated terminal for compiling and running Java programs. - Dark and light theme options. - Simple and intuitive user interface.  Feel free to contribute, report issues, or suggest improvements!
