@@ -69,8 +69,8 @@ public class App extends JFrame {
     static final String currentPath = System.getProperty("user.dir");
     public static File currentTabFile = new File("");
     public static final Font font = new Font("Consolas", 0, DEFAULT_FONT_SIZE);
-    public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("jBlue.png"));
-    public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("jred.png"));
+    public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
+    public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
 
     /**
      * Constructor for the BitCode IDE application.
@@ -81,7 +81,7 @@ public class App extends JFrame {
         // Set up the main frame
         final Toolkit tk = Toolkit.getDefaultToolkit();
         final Dimension screenSize = tk.getScreenSize();
-        final Image icon = Toolkit.getDefaultToolkit().getImage(App.class.getResource("icon.png"));
+        final Image icon = Toolkit.getDefaultToolkit().getImage(App.class.getResource("/icons/icon.png"));
 
         setIconImage(icon);
         setSize(new Dimension((int) (screenSize.width * SCREEN_WIDTH_RATIO),
