@@ -11,7 +11,7 @@ public class CommandLine {
         String fileName = file.getName();
         try {
             // Use relative path to the "scripts" folder
-            String scriptPath = Paths.get("scripts", "runjava.exe").toString();
+            String scriptPath = Paths.get("scripts", "script.bat").toString();
             File scriptFile = new File(scriptPath);
 
             if (!scriptFile.exists()) {
