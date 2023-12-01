@@ -17,3 +17,5 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 *.jar
+BitCode.exe
+launch4j.log
