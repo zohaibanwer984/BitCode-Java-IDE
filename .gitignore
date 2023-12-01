@@ -1,4 +1,5 @@
 target/
+JDK/jdk-21.0.1/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -16,3 +17,5 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 *.jar
+BitCode.exe
+launch4j.log

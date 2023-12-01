@@ -7,10 +7,12 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 
 ## Features
 
-- **Tabbed Editor:** Easily manage multiple code files with a tabbed interface.
-- **Syntax Highlighting:** Enhance code readability with syntax highlighting for different programming elements.
-- **Code Compilation:** Compile and run Java code within the IDE.
-- **Customizable Themes:** Choose from various themes to personalize your coding environment.
+- **Syntax Highlighting:** Supports syntax highlighting for Java code.
+- **Code Compilation:** Compiles Java code using the bundled OpenJDK.
+- **Code Execution:** Runs compiled Java programs.
+- **Undo/Redo:** Provides undo and redo functionality for text edits.
+- **Line Numbering:** Displays line numbers in the code editor.
+- **Theme Support:** Offers different themes for the IDE.
 
 ## Screenshots
 
@@ -26,42 +28,37 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 ![Code Compilation](/screenshots/code_compilation.png)
 *Showing the compilation process and terminal output.*
 
-## Getting Started
+# Getting Started
 
 ### Prerequisites
 
-- Java JDK 8 or higher
-- Maven (for building the project)
-
+- Maven installed
+- JDK
+  
 ### Installation
 
-1. Clone the repository.
-   ```bash
-   git clone https://github.com/your-username/bitcode-ide.git
-   ```
+1. Clone the repository:
 
-2. Build the project using Maven.
-   ```bash
-   cd bitcode-ide
-   mvn clean install
-   ```
+    ```bash
+    git clone https://github.com/zohaibanwer984/BitCode-Java-IDE.git
+    ```
 
-3. Run the application.
-   ```bash
-   java -jar target/bitcode-ide.jar
-   ```
+2. Open the project in your favorite Java IDE.
 
-## Usage
+### Usage
 
-1. Open the application.
-2. Use the menu bar to create new files, open existing ones, and customize the editor.
-3. Write and edit your code in the tabbed editor.
-4. Compile and run your Java code using the provided tools.
+1. Open the project in your Java IDE.
+2. Run the `com.zam.App` class to launch the BitCode IDE.
 
-## Contributing
+### Bundled OpenJDK
 
-If you'd like to contribute to BitCode IDE,Feel Free to make any improvements.
+The project includes a `JDK` folder where you can place the OpenJDK distribution for development. The IDE will use this bundled JDK for compilation and execution.
+
+## Thanks
+
+Special thanks to [FlatLaf](https://github.com/JFormDesigner/FlatLaf) for providing the FlatLaf theme library, enhancing the visual appeal of BitCode IDE.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
