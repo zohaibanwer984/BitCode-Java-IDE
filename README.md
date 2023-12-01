@@ -1,5 +1,6 @@
 # BitCode IDE
 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ## Overview
 
 BitCode IDE is a lightweight Java Integrated Development Environment designed for simplicity and ease of use. It provides a feature-rich code editor, syntax highlighting, and basic code compilation and execution capabilities.
