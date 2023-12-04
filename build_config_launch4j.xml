@@ -15,10 +15,10 @@
   <manifest></manifest>
   <icon>C:\Users\LENOVO\Documents\GitHub\BitCode-Java-IDE\src\main\resources\icons\icon.ico</icon>
   <jre>
-    <path>./JDK/jdk-21.0.1/</path>
+    <path>JDK/jdk-21.0.1</path>
     <requiresJdk>true</requiresJdk>
     <requires64Bit>true</requires64Bit>
-    <minVersion>17</minVersion>
-    <maxVersion>21</maxVersion>
+    <minVersion>21.0.1</minVersion>
+    <maxVersion>21.0.2</maxVersion>
   </jre>
 </launch4jConfig>
