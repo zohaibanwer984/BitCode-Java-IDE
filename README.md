@@ -51,6 +51,10 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 
 The project includes a `JDK` folder where you can place the OpenJDK distribution for development. The IDE will use this bundled JDK for compilation and execution.
 
+## Contributing
+
+Contributions, bug reports, and feature requests are welcome! See the [issues](https://github.com/zohaibanwer984/BitCode-Java-IDE/issues) page if you want to contribute.
+
 ## Thanks
 
 Special thanks to [FlatLaf](https://github.com/JFormDesigner/FlatLaf) for providing the FlatLaf theme library, enhancing the visual appeal of BitCode IDE.
