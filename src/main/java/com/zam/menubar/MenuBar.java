@@ -1,4 +1,4 @@
-package com.zam;
+package com.zam.menubar;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -23,6 +23,12 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Utilities;
+
+import com.zam.components.Editor.EditorTabPane;
+import com.zam.components.Editor.LineNumberPane;
+import com.zam.dialogboxes.ThemeDialog;
+import com.zam.ui.App;
+import com.zam.utils.CommandLine;
 
 /**
  * The `MenuBar` class represents the menu bar for the code editor application.

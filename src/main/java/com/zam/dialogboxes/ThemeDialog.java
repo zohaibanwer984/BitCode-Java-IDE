@@ -1,4 +1,4 @@
-package com.zam;
+package com.zam.dialogboxes;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+
+import com.zam.ui.App;
 
 /**
  * A dialog for selecting a theme from a list of available themes.

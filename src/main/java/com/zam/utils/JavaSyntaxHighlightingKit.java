@@ -1,4 +1,4 @@
-package com.zam;
+package com.zam.utils;
 
 import java.awt.Color;
 import java.util.List;
@@ -9,6 +9,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+
+import com.zam.utils.JavaSyntaxTokenizer.Token;
+import com.zam.utils.JavaSyntaxTokenizer.TokenType;
 
 /**
  * A class that extends DefaultStyledDocument and can be used to highlight the syntax of
@@ -116,13 +119,13 @@ public class JavaSyntaxHighlightingKit extends DefaultStyledDocument {
         String code = getText(0, getLength());
 
         // Tokenize the code using the JavaSyntaxTokenizer class
-        List<JavaSyntaxTokenizer.Token> tokens = JavaSyntaxTokenizer.tokenize(code);
+        List<Token> tokens = JavaSyntaxTokenizer.tokenize(code);
 
         // Set the attributes for the entire document to the IDENTIFIER_ATTRS attribute set
         setCharacterAttributes(0, getLength(), PARENTHESES_ATTRS, false);
 
         // Iterate over the list of tokens
-        for (JavaSyntaxTokenizer.Token token : tokens) {
+        for (Token token : tokens) {
             // Get the attributes for the token type
             AttributeSet attrs = getAttributesForTokenType(token.getType());
 
@@ -139,7 +142,7 @@ public class JavaSyntaxHighlightingKit extends DefaultStyledDocument {
      * @param type the token type
      * @return the attributes for the token type
      */
-    private AttributeSet getAttributesForTokenType(JavaSyntaxTokenizer.TokenType type) {
+    private AttributeSet getAttributesForTokenType(TokenType type) {
         switch (type) {
             case KEYWORD:
                 return KEYWORD_ATTRS;

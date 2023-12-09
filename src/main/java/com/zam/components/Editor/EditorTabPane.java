@@ -1,4 +1,4 @@
-package com.zam;
+package com.zam.components.Editor;
 
 import java.awt.Color;
 import java.util.List;
@@ -8,6 +8,9 @@ import javax.swing.Icon;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
+
+import com.zam.menubar.MenuBar;
+import com.zam.ui.App;
 
 /**
  * Custom extension of JTabbedPane for managing code editor tabs in BitCode IDE.

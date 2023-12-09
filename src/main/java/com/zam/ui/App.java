@@ -1,4 +1,4 @@
-package com.zam;
+package com.zam.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +20,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import com.zam.components.Editor.EditorTabPane;
+import com.zam.components.Editor.LineNumberPane;
+import com.zam.menubar.MenuBar;
+import com.zam.utils.SyntaxColorManager;
 
 /**
  * The main class representing the BitCode IDE application.
@@ -159,20 +164,5 @@ public class App extends JFrame {
         for (LineNumberPane lineNumPane : lineNumberPanes) {
             lineNumPane.addSyntaxHighlighter(false);
         }
-    }
-
-    /**
-     * The main method to launch the BitCode IDE application.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            String arguments = (args.length > 0) ? args[0] : "";
-            final App app = new App(arguments);
-            app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            app.setTitle("BitCode Editor");
-            app.setVisible(true);
-        });
     }
 }
