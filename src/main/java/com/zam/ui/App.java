@@ -21,8 +21,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.zam.components.Editor.EditorTabPane;
-import com.zam.components.Editor.LineNumberPane;
+import com.zam.components.editor.EditorTabPane;
+import com.zam.components.editor.LineNumberPane;
 import com.zam.menubar.MenuBar;
 import com.zam.utils.SyntaxColorManager;
 

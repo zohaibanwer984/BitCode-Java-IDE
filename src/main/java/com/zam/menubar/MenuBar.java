@@ -24,8 +24,8 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Utilities;
 
-import com.zam.components.Editor.EditorTabPane;
-import com.zam.components.Editor.LineNumberPane;
+import com.zam.components.editor.EditorTabPane;
+import com.zam.components.editor.LineNumberPane;
 import com.zam.dialogboxes.ThemeDialog;
 import com.zam.ui.App;
 import com.zam.utils.CommandLine;
