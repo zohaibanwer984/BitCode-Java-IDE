@@ -9,7 +9,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
-import com.zam.menubar.MenuBar;
 import com.zam.ui.App;
 
 /**
@@ -42,10 +41,9 @@ public class EditorTabPane extends JTabbedPane {
     /**
      * Constructor for the EditorTabPane.
      *
-     * @param NumberPanes The list of LineNumberPanes associated with each code editor tab.
      * @param parent      The main App instance.
      */
-    public EditorTabPane(List<LineNumberPane> NumberPanes, App parent) {
+    public EditorTabPane(App parent) {
         this.mainApp = parent;
 
         // Set custom UI properties for tab appearance and behavior
@@ -54,7 +52,7 @@ public class EditorTabPane extends JTabbedPane {
         UIManager.put("TabbedPane.closeHoverBackground", new Color(0, true));
         UIManager.put("TabbedPane.showTabSeparators", true);
 
-        this.lineNumberPanes = NumberPanes;
+        this.lineNumberPanes = mainApp.lineNumberPanes;
 
         // Enable tab closing and set tab layout policy
         this.putClientProperty("JTabbedPane.tabClosable", true);
@@ -64,9 +62,9 @@ public class EditorTabPane extends JTabbedPane {
         this.putClientProperty("JTabbedPane.tabCloseCallback", (BiConsumer<JTabbedPane, Integer>) (tabbedPane, tabIndex) -> {
             // Close tab logic
             if (getTitleAt(tabIndex).startsWith("untitled")) {
-                MenuBar.untitledCount--;
+                mainApp.menuBar.fileMenu.untitledCount--;
             }
-            NumberPanes.remove((int) tabIndex);
+            lineNumberPanes.remove((int) tabIndex);
             this.remove(tabIndex);
         });
     }
