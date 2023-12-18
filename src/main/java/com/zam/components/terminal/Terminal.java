@@ -18,6 +18,8 @@ import javax.swing.text.DocumentFilter;
 
 import com.zam.ui.App;
 
+// wrote on 2023-12-05
+
 public class Terminal extends JPanel{
     public int lastCaretPos = 0;
     public final JTextArea consolArea;
@@ -51,7 +53,6 @@ public class Terminal extends JPanel{
                         String command = consolArea.getText(lastCaretPos, caretPos - lastCaretPos).trim();
                         lastCaretPos = caretPos;
                         System.out.println("Command :" + command);
-                        // mainApp.editor.codeExcutor.runner.write(command + "\n");
                       } catch (BadLocationException ex) {
                         ex.printStackTrace();
                       }

@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
 
 import com.zam.components.editor.EditorTabPane;
 import com.zam.components.editor.LineNumberPane;
+import com.zam.components.terminal.Terminal;
 import com.zam.menubar.MenuBar;
 import com.zam.utils.SyntaxColorManager;
 
@@ -73,7 +74,7 @@ public class App extends JFrame {
     // Public Componnets
     public final List<LineNumberPane> lineNumberPanes;
     public final EditorTabPane tabbedEditorPane;
-    public final JTextArea terminalArea;
+    public final Terminal terminalArea;
     public final MenuBar menuBar;
     
     // Public Resources 
@@ -103,15 +104,16 @@ public class App extends JFrame {
         tabbedEditorPane = new EditorTabPane(this);
 
         // Create the terminal area
-        terminalArea = new JTextArea();
-        terminalArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
-        terminalArea.setText(">> THIS IS BitCode TERMINAL ERRORS AND INFO WILL BE HERE..");
-        terminalArea.setFont(font);
-        terminalArea.setLineWrap(false);
-        terminalArea.setWrapStyleWord(false);
-        terminalArea.setEditable(false);
-        terminalArea.setBackground(Color.BLACK);
-        terminalArea.setForeground(Color.WHITE);
+        terminalArea = new Terminal(this);
+        // terminalArea = new JTextArea();
+        // terminalArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
+        // terminalArea.setText(">> THIS IS BitCode TERMINAL ERRORS AND INFO WILL BE HERE..");
+        // terminalArea.setFont(font);
+        // terminalArea.setLineWrap(false);
+        // terminalArea.setWrapStyleWord(false);
+        // terminalArea.setEditable(false);
+        // terminalArea.setBackground(Color.BLACK);
+        // terminalArea.setForeground(Color.WHITE);
         final JScrollPane scrollPane = new JScrollPane(terminalArea);
         scrollPane.setAutoscrolls(true);
 

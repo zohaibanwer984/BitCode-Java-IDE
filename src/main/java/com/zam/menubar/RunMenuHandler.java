@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
+import com.zam.components.terminal.Terminal;
 import com.zam.ui.App;
 import com.zam.utils.CommandLine;
 
@@ -34,7 +35,7 @@ public class RunMenuHandler extends JMenu{
 
         // Add an action listener to the "Compile" menu item
         compileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
-        compileItem.addActionListener(e -> compileCode(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        compileItem.addActionListener(e -> compileCode( mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane, mainApp.terminalArea));
 
         // Add an action listener to the "Compile" menu item
         runItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
@@ -71,9 +72,10 @@ public class RunMenuHandler extends JMenu{
      * Compiles the code in the code area in a separate thread.
      * Displays compilation output in the terminal text area.
      */
-    public void compileCode(JTextPane codeTextArea) {
+    public void compileCode(JTextPane codeTextArea, Terminal terminal) {
         Thread t = new Thread(() -> {
             codeTextArea.setEnabled(false);
+            terminal.showProgressBar();
             String name = App.currentTabFile.getName();
 
             if (name.length() == 0) {
@@ -96,9 +98,10 @@ public class RunMenuHandler extends JMenu{
                 mainApp.menuBar.isCompiled = false;
             }
 
-            mainApp.terminalArea.setText(mainApp.terminalArea.getText() + "\n>> " + ((output.equals("")) ? "COMPILED SUCCESSFULLY" : output));
-            mainApp.terminalArea.setCaretPosition(mainApp.terminalArea.getDocument().getLength());
+            mainApp.terminalArea.consolArea.setText(mainApp.terminalArea.consolArea.getText() + "\n>> " + ((output.equals("")) ? "COMPILED SUCCESSFULLY" : output));
+            mainApp.terminalArea.consolArea.setCaretPosition(mainApp.terminalArea.consolArea.getDocument().getLength());
             codeTextArea.setEnabled(true);
+            terminal.hideProgressBar();
         });
 
         t.start();
