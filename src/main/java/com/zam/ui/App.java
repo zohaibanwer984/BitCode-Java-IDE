@@ -1,6 +1,5 @@
 package com.zam.ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -10,12 +9,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
@@ -105,15 +102,6 @@ public class App extends JFrame {
 
         // Create the terminal area
         terminalArea = new Terminal(this);
-        // terminalArea = new JTextArea();
-        // terminalArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
-        // terminalArea.setText(">> THIS IS BitCode TERMINAL ERRORS AND INFO WILL BE HERE..");
-        // terminalArea.setFont(font);
-        // terminalArea.setLineWrap(false);
-        // terminalArea.setWrapStyleWord(false);
-        // terminalArea.setEditable(false);
-        // terminalArea.setBackground(Color.BLACK);
-        // terminalArea.setForeground(Color.WHITE);
         final JScrollPane scrollPane = new JScrollPane(terminalArea);
         scrollPane.setAutoscrolls(true);
 
