@@ -1,22 +1,26 @@
-package com.zam;
+package com.zam.components.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import javax.swing.undo.UndoManager;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.StyledEditorKit;
+import javax.swing.undo.UndoManager;
+
+import com.zam.ui.App;
+import com.zam.utils.JavaSyntaxHighlightingKit;
 
 /**
  * The `LineNumberPane` class is a custom Swing component that combines a text area for code editing

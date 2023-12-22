@@ -1,4 +1,4 @@
-package com.zam;
+package com.zam.utils;
 
 import javax.swing.UIManager;
 

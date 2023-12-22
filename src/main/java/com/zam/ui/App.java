@@ -1,6 +1,5 @@
-package com.zam;
+package com.zam.ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -10,16 +9,20 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import com.zam.components.editor.EditorTabPane;
+import com.zam.components.editor.LineNumberPane;
+import com.zam.components.terminal.Terminal;
+import com.zam.menubar.MenuBar;
+import com.zam.utils.SyntaxColorManager;
 
 /**
  * The main class representing the BitCode IDE application.
@@ -61,23 +64,30 @@ public class App extends JFrame {
         }
     }
 
-    // Instance variables
+    // Private Componnets
     private final JSplitPane splitPane;
-    private final List<LineNumberPane> lineNumberPanes = new ArrayList<>();
-    public final EditorTabPane tabbedEditorPane = new EditorTabPane(lineNumberPanes, this);
-    public static int currentTabIndex = 0;
-    static final String currentPath = System.getProperty("user.dir");
-    public static File currentTabFile = new File("");
-    public static final Font font = new Font("Consolas", 0, DEFAULT_FONT_SIZE);
+    // static final String currentPath = System.getProperty("user.dir");
+    
+    // Public Componnets
+    public final List<LineNumberPane> lineNumberPanes;
+    public final EditorTabPane tabbedEditorPane;
+    public final Terminal terminalArea;
+    public final MenuBar menuBar;
+    
+    // Public Resources
     public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
     public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
-
+    public static int currentTabIndex = 0;
+    public static File currentTabFile = new File("");
+    public static final Font font = new Font("Consolas", 0, DEFAULT_FONT_SIZE);
+    public final String jdkPath;
     /**
      * Constructor for the BitCode IDE application.
-     *
+     * @param jdkBinPath JDK path which will be used to run and compile the program
      * @param args Command-line arguments passed to the application.
      */
-    public App(String args) {
+    public App(String jdkBinPath, String args) {
+        this.jdkPath = jdkBinPath;
         // Set up the main frame
         final Toolkit tk = Toolkit.getDefaultToolkit();
         final Dimension screenSize = tk.getScreenSize();
@@ -88,16 +98,11 @@ public class App extends JFrame {
                 (int) (screenSize.height * SCREEN_HEIGHT_RATIO)));
         setFont(font);
 
+        lineNumberPanes = new ArrayList<>();
+        tabbedEditorPane = new EditorTabPane(this);
+
         // Create the terminal area
-        final JTextArea terminalArea = new JTextArea();
-        terminalArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
-        terminalArea.setText(">> THIS IS BitCode TERMINAL ERRORS AND INFO WILL BE HERE..");
-        terminalArea.setFont(font);
-        terminalArea.setLineWrap(false);
-        terminalArea.setWrapStyleWord(false);
-        terminalArea.setEditable(false);
-        terminalArea.setBackground(Color.BLACK);
-        terminalArea.setForeground(Color.WHITE);
+        terminalArea = new Terminal(this);
         final JScrollPane scrollPane = new JScrollPane(terminalArea);
         scrollPane.setAutoscrolls(true);
 
@@ -106,7 +111,7 @@ public class App extends JFrame {
         add(splitPane);
 
         // Create the menu bar
-        final MenuBar menuBar = new MenuBar(tabbedEditorPane, lineNumberPanes, terminalArea, this);
+        menuBar = new MenuBar(this);
         setJMenuBar(menuBar);
 
         // Listen for changes in the selected tab
@@ -118,8 +123,8 @@ public class App extends JFrame {
                     EditorTabPane pane = (EditorTabPane) e.getSource();
                     currentTabIndex = pane.getSelectedIndex();
                     if (currentTabIndex < 0) {
-                        MenuBar.untitledCount = 0;
-                        menuBar.newFile();
+                        menuBar.fileMenu.untitledCount = 0;
+                        menuBar.fileMenu.newFile();
                         return;
                     }
                     currentTabFile = new File(pane.getToolTipTextAt(currentTabIndex));
@@ -133,11 +138,11 @@ public class App extends JFrame {
         // Create a new tab in initiation
         if (args.length() > 0) {
             currentTabFile = new File(args);
-            menuBar.loadFile();
+            menuBar.fileMenu.loadFile();
             terminalArea.setPreferredSize(new Dimension((int) (getWidth() - 50),
                     (int) (screenSize.height * 0.22)));
         } else {
-            menuBar.newFile();
+            menuBar.fileMenu.newFile();
         }
         splitPane.setResizeWeight(0.65);
     }
@@ -159,20 +164,5 @@ public class App extends JFrame {
         for (LineNumberPane lineNumPane : lineNumberPanes) {
             lineNumPane.addSyntaxHighlighter(false);
         }
-    }
-
-    /**
-     * The main method to launch the BitCode IDE application.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            String arguments = (args.length > 0) ? args[0] : "";
-            final App app = new App(arguments);
-            app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            app.setTitle("BitCode Editor");
-            app.setVisible(true);
-        });
     }
 }
