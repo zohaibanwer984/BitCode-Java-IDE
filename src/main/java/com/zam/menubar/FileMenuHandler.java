@@ -15,9 +15,27 @@ import javax.swing.KeyStroke;
 import com.zam.components.editor.LineNumberPane;
 import com.zam.ui.App;
 
-// Wrote on 12 - DEC - 2023
-
-public class FileMenuHandler extends JMenu{
+/**
+ * Custom menu handler for the File menu in BitCode IDE.
+ *
+ * Responsibilities:
+ * - Handling new, open, save, save as, and exit operations.
+ * - Integrating with the main application to perform actions on the current text area.
+ *
+ * Usage:
+ * - Integrate into the main menu bar by creating an instance and adding to the appropriate menu.
+ *
+ * Example:
+ * ```java
+ * FileMenuHandler fileMenu = new FileMenuHandler("File", mainApp);
+ * mainMenuBar.add(fileMenu);
+ * ```
+ *
+ * @author Muhammed Zohaib
+ * @version 1.0
+ * @since 2023-12-12
+ */
+public class FileMenuHandler extends JMenu {
 
     private final JMenuItem newFileItem = new JMenuItem("New");
     private final JMenuItem openFileItem = new JMenuItem("Open");
@@ -25,11 +43,16 @@ public class FileMenuHandler extends JMenu{
     private final JMenuItem saveAsFileItem = new JMenuItem("Save As");
     private final JMenuItem exitProgramItem = new JMenuItem("Exit");
 
-    final private App mainApp;
+    private final App mainApp;
     public int untitledCount = 0;
 
-
-    FileMenuHandler(String title, App parent){
+    /**
+     * Constructor for the FileMenuHandler.
+     *
+     * @param title  The title of the menu.
+     * @param parent The main App instance.
+     */
+    public FileMenuHandler(String title, App parent) {
         super(title);
 
         this.mainApp = parent;
@@ -41,6 +64,14 @@ public class FileMenuHandler extends JMenu{
         addSeparator(); // Add a separator line
         add(exitProgramItem);
 
+        // Add action listeners and accelerators
+        configureMenuItems();
+    }
+
+    /**
+     * Configures action listeners and accelerators for menu items.
+     */
+    private void configureMenuItems() {
         // Add an action listener to the "New" menu item
         newFileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         newFileItem.addActionListener(e -> newFile());
@@ -57,16 +88,17 @@ public class FileMenuHandler extends JMenu{
         saveAsFileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
         saveAsFileItem.addActionListener(e -> saveAsFile(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
 
-        // Add an action listener to the "Save As" menu item
+        // Add an action listener to the "Exit" menu item
         exitProgramItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
         exitProgramItem.addActionListener(e -> System.exit(0));
     }
+
     /**
      * Creates a new untitled file with default code and adds it to the editor.
      * Increments the untitledCount.
      */
     public void newFile() {
-        final String code = 
+        final String code =
             "/*\n * Save this file as Main.java before compiling\n*/" +
             "\npublic class Main {\n" +
             "    public static void main(String[] args) {\n" +
@@ -79,6 +111,7 @@ public class FileMenuHandler extends JMenu{
         mainApp.menuBar.isCompiled = false;
         untitledCount++;
     }
+
     /**
      * Opens a file using a file chooser dialog and loads its content.
      * Updates the currentTabFile and sets isCompiled to false.
@@ -103,6 +136,7 @@ public class FileMenuHandler extends JMenu{
             mainApp.menuBar.isCompiled = false;
         }
     }
+
     /**
      * Loads the content of the currentTabFile into the editor.
      * Adds a new code area tab, sets its content, and adds syntax highlighting.
@@ -132,6 +166,7 @@ public class FileMenuHandler extends JMenu{
             e.printStackTrace();
         }
     }
+
     /**
      * Saves the content of the codeTextArea to a new file selected by the user.
      * The file is chosen using a file dialog.

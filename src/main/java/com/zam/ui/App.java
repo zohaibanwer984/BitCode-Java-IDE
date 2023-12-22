@@ -74,19 +74,20 @@ public class App extends JFrame {
     public final Terminal terminalArea;
     public final MenuBar menuBar;
     
-    // Public Resources 
+    // Public Resources
     public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
     public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
     public static int currentTabIndex = 0;
     public static File currentTabFile = new File("");
     public static final Font font = new Font("Consolas", 0, DEFAULT_FONT_SIZE);
-    
+    public final String jdkPath;
     /**
      * Constructor for the BitCode IDE application.
-     *
+     * @param jdkBinPath JDK path which will be used to run and compile the program
      * @param args Command-line arguments passed to the application.
      */
-    public App(String args) {
+    public App(String jdkBinPath, String args) {
+        this.jdkPath = jdkBinPath;
         // Set up the main frame
         final Toolkit tk = Toolkit.getDefaultToolkit();
         final Dimension screenSize = tk.getScreenSize();

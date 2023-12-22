@@ -18,9 +18,27 @@ import javax.swing.text.Utilities;
 import com.zam.components.editor.LineNumberPane;
 import com.zam.ui.App;
 
-// Wrote on 12 - DEC - 2023
-
-public class EditMenuHandler extends JMenu{
+/**
+ * Custom menu handler for the Edit menu in BitCode IDE.
+ *
+ * Responsibilities:
+ * - Handling undo, redo, cut, copy, paste, and go-to-line operations.
+ * - Integrating with the main application to perform actions on the current text area.
+ *
+ * Usage:
+ * - Integrate into the main menu bar by creating an instance and adding to the appropriate menu.
+ *
+ * Example:
+ * ```java
+ * EditMenuHandler editMenu = new EditMenuHandler("Edit", mainApp);
+ * mainMenuBar.add(editMenu);
+ * ```
+ *
+ * @author Muhammed Zohaib
+ * @version 1.0
+ * @since 2023-12-12
+ */
+public class EditMenuHandler extends JMenu {
 
     private final JMenuItem undoItem = new JMenuItem("Undo");
     private final JMenuItem redoItem = new JMenuItem("Redo");
@@ -29,12 +47,19 @@ public class EditMenuHandler extends JMenu{
     private final JMenuItem pasteItem = new JMenuItem("Paste");
     private final JMenuItem gotoItem = new JMenuItem("Go-to line");
 
-    final private App mainApp;
+    private final App mainApp;
 
-    EditMenuHandler(String title, App parent){
+    /**
+     * Constructor for the EditMenuHandler.
+     *
+     * @param title  The title of the menu.
+     * @param parent The main App instance.
+     */
+    EditMenuHandler(String title, App parent) {
         super(title);
 
         this.mainApp = parent;
+
         // Add items to the Edit tab
         add(undoItem);
         add(redoItem);
@@ -44,6 +69,15 @@ public class EditMenuHandler extends JMenu{
         add(pasteItem);
         addSeparator(); // Add a separator line
         add(gotoItem);
+
+        // Add action listeners and accelerators
+        configureMenuItems();
+    }
+
+    /**
+     * Configures action listeners and accelerators for menu items.
+     */
+    private void configureMenuItems() {
         // Add an action listener to the "Undo" menu item
         undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
         undoItem.addActionListener(e -> undo());
@@ -67,12 +101,12 @@ public class EditMenuHandler extends JMenu{
         // Add an action listener to the "GO-TO" menu item
         gotoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK));
         gotoItem.addActionListener(e -> gotoLine(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
-
     }
+
     /**
      * Performs an undo operation on the current text area.
      */
-    public void undo() {
+    private void undo() {
         LineNumberPane singlePane = mainApp.lineNumberPanes.get(App.currentTabIndex);
         if (singlePane.undoManager.canUndo()) {
             singlePane.undoManager.undo();
@@ -82,7 +116,7 @@ public class EditMenuHandler extends JMenu{
     /**
      * Performs a redo operation on the current text area.
      */
-    public void redo() {
+    private void redo() {
         LineNumberPane singlePane = mainApp.lineNumberPanes.get(App.currentTabIndex);
         if (singlePane.undoManager.canRedo()) {
             singlePane.undoManager.redo();
@@ -93,7 +127,7 @@ public class EditMenuHandler extends JMenu{
      * Opens a dialog to get the line number input from the user and moves the caret to that line.
      * Highlights the selected line for 1 second.
      */
-    public void gotoLine(JTextPane codeTextArea) {
+    private void gotoLine(JTextPane codeTextArea) {
         // Show a dialog box to get the line number input
         String input = JOptionPane.showInputDialog(mainApp, "Enter line number:", "Go to line", JOptionPane.QUESTION_MESSAGE);
         if (input != null) {
@@ -129,5 +163,4 @@ public class EditMenuHandler extends JMenu{
             }
         }
     }
-
 }
