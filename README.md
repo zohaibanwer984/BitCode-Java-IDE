@@ -7,6 +7,7 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 
 ## Features
 
+- **Bulit-in Console:** Output of files will be run insice the IDE
 - **Syntax Highlighting:** Supports syntax highlighting for Java code.
 - **Code Compilation:** Compiles Java code using the bundled OpenJDK.
 - **Code Execution:** Runs compiled Java programs.
