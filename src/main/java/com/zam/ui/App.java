@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import com.zam.components.editor.EditorTabPane;
 import com.zam.components.editor.LineNumberPane;
 import com.zam.components.terminal.Terminal;
 import com.zam.menubar.MenuBar;
+import com.zam.utils.PropertiesHandler;
 import com.zam.utils.SyntaxColorManager;
 
 /**
@@ -49,32 +49,16 @@ public class App extends JFrame {
     private static final double SCREEN_HEIGHT_RATIO = 0.65;
     private static final int DEFAULT_FONT_SIZE = 16;
 
-    // Static block for initializing application properties
-    static {
-        // This static block runs at the very beginning of the app, even before the main method.
-        try {
-            File file = new File(App.class.getProtectionDomain().getCodeSource()
-                    .getLocation().toURI().getPath());
-            String basePath = file.getParent();
-            // Overrides the existing value of "user.dir"
-            System.getProperties().put("user.dir", basePath);
-        } catch (URISyntaxException ex) {
-            // Log the error
-            ex.printStackTrace();
-        }
-    }
-
     // Private Componnets
     private final JSplitPane splitPane;
-    // static final String currentPath = System.getProperty("user.dir");
     
     // Public Componnets
     public final List<LineNumberPane> lineNumberPanes;
     public final EditorTabPane tabbedEditorPane;
     public final Terminal terminalArea;
     public final MenuBar menuBar;
-    
     // Public Resources
+    public PropertiesHandler properties = new PropertiesHandler(App.class.getResource("/App.properties").getFile());
     public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
     public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
     public static int currentTabIndex = 0;
