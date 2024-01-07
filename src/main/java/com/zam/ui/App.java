@@ -23,7 +23,6 @@ import com.zam.components.editor.EditorTabPane;
 import com.zam.components.terminal.Terminal;
 import com.zam.menubar.MenuBar;
 import com.zam.utils.PropertiesHandler;
-import com.zam.utils.SyntaxColorManager;
 
 /**
  * The main class representing the BitCode IDE application.
@@ -142,14 +141,9 @@ public class App extends JFrame {
     public void switchLookAndFeel(String theme) {
         try {
             UIManager.setLookAndFeel(theme);
-            SyntaxColorManager.setColors(theme);
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception ex) {
             System.err.println("Failed to set look and feel: " + theme);
         }
-        // // Re-register all the document listeners with the codePanes
-        // for (CodeTextArea lineNumPane : lineNumberPanes) {
-        //     lineNumPane.addSyntaxHighlighter(false);
-        // }
     }
 }

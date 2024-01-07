@@ -8,12 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.CompletionCellRenderer;
+import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import com.zam.ui.App;
+import com.zam.utils.JavaCompletionProvider;
 
 /**
  * Custom JPanel for creating a code editor area using RSyntaxTextArea.
@@ -78,6 +82,19 @@ public class CodeTextArea extends JPanel {
 
         // Enable tooltips for code editor
         ToolTipManager.sharedInstance().registerComponent(codeTextArea);
+
+        // Created Basic Completion Provider
+        CompletionProvider provider = new JavaCompletionProvider();
+        provider.setListCellRenderer(new CompletionCellRenderer());
+
+        // Adding Provider to AutoCompletion
+        AutoCompletion ac = new AutoCompletion(provider);
+        ac.setAutoCompleteEnabled(true);
+        ac.setParameterAssistanceEnabled(true);
+        ac.setAutoCompleteSingleChoices(true);
+        ac.setAutoActivationEnabled(true);
+        ac.setAutoActivationDelay(10);
+        ac.install(codeTextArea);
 
         // Set layout and add the code pane to the panel
         setLayout(new BorderLayout());
