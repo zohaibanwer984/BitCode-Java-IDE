@@ -17,8 +17,9 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.zam.components.editor.CodeTextArea;
 import com.zam.components.editor.EditorTabPane;
-import com.zam.components.editor.LineNumberPane;
+// import com.zam.components.editor.LineNumberPane;
 import com.zam.components.terminal.Terminal;
 import com.zam.menubar.MenuBar;
 import com.zam.utils.PropertiesHandler;
@@ -39,7 +40,7 @@ import com.zam.utils.SyntaxColorManager;
  * - Providing the main method to launch the application.
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-11-29
  */
 public class App extends JFrame {
@@ -53,7 +54,7 @@ public class App extends JFrame {
     private final JSplitPane splitPane;
     
     // Public Componnets
-    public final List<LineNumberPane> lineNumberPanes;
+    public final List<CodeTextArea> codeAreaPanes;
     public final EditorTabPane tabbedEditorPane;
     public final Terminal terminalArea;
     public final MenuBar menuBar;
@@ -81,8 +82,9 @@ public class App extends JFrame {
         setSize(new Dimension((int) (screenSize.width * SCREEN_WIDTH_RATIO),
                 (int) (screenSize.height * SCREEN_HEIGHT_RATIO)));
         setFont(font);
+        UIManager.put("Consolas", font);
 
-        lineNumberPanes = new ArrayList<>();
+        codeAreaPanes = new ArrayList<>();
         tabbedEditorPane = new EditorTabPane(this);
 
         // Create the terminal area
@@ -117,7 +119,8 @@ public class App extends JFrame {
         });
 
         // Apply look and feel and document listener to codeArea and syntaxEditorKit
-        switchLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+        String themeName = this.properties.getProperty("lookAndFeel");
+        switchLookAndFeel(themeName);
 
         // Create a new tab in initiation
         if (args.length() > 0) {
@@ -144,9 +147,9 @@ public class App extends JFrame {
         } catch (Exception ex) {
             System.err.println("Failed to set look and feel: " + theme);
         }
-        // Re-register all the document listeners with the codePanes
-        for (LineNumberPane lineNumPane : lineNumberPanes) {
-            lineNumPane.addSyntaxHighlighter(false);
-        }
+        // // Re-register all the document listeners with the codePanes
+        // for (CodeTextArea lineNumPane : lineNumberPanes) {
+        //     lineNumPane.addSyntaxHighlighter(false);
+        // }
     }
 }

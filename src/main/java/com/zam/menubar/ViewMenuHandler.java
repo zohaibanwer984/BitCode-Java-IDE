@@ -6,10 +6,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
-import com.zam.dialogboxes.ThemeDialog;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
+import com.zam.dialogboxes.ThemeChanger;
 import com.zam.ui.App;
 
 /**
@@ -30,7 +31,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-12-12
  */
 public class ViewMenuHandler extends JMenu {
@@ -66,21 +67,21 @@ public class ViewMenuHandler extends JMenu {
     private void configureMenuItems() {
         // Add an action listener to the "Increase Font" menu item
         increaseFontSizeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK));
-        increaseFontSizeItem.addActionListener(e -> increaseFontSize(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        increaseFontSizeItem.addActionListener(e -> increaseFontSize(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Decrease Font" menu item
         decreaseFontSizeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK));
-        decreaseFontSizeItem.addActionListener(e -> decreaseFontSize(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        decreaseFontSizeItem.addActionListener(e -> decreaseFontSize(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Change Theme" menu item
         changeThemeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
-        changeThemeItem.addActionListener(e -> openThemeDialog(true));
+        changeThemeItem.addActionListener(e -> openThemeDialog());
     }
 
     /**
      * Increases the font size of the code area by 2.
      */
-    public void increaseFontSize(JTextPane codeTextArea) {
+    public void increaseFontSize(RSyntaxTextArea codeTextArea) {
         Font font = new Font(codeTextArea.getFont().getName(), Font.PLAIN, codeTextArea.getFont().getSize() + 2);
         codeTextArea.setFont(font);
     }
@@ -88,7 +89,7 @@ public class ViewMenuHandler extends JMenu {
     /**
      * Decreases the font size of the code area by 2, with a minimum font size of 6.
      */
-    public void decreaseFontSize(JTextPane codeTextArea) {
+    public void decreaseFontSize(RSyntaxTextArea codeTextArea) {
         int newSize = Math.max(6, codeTextArea.getFont().getSize() - 2);
         Font font = new Font(codeTextArea.getFont().getName(), Font.PLAIN, newSize);
         codeTextArea.setFont(font);
@@ -97,8 +98,11 @@ public class ViewMenuHandler extends JMenu {
     /**
      * Opens a theme selection dialog to toggle dark mode.
      */
-    public void openThemeDialog(boolean enabled) {
-        ThemeDialog themeDialog = new ThemeDialog(mainApp);
-        themeDialog.setVisible(true);
+    public void openThemeDialog() {
+        // ThemeDialog themeDialog = new ThemeDialog(mainApp);
+        // themeDialog.setVisible(true);
+        ThemeChanger dialog = new ThemeChanger(mainApp);
+        dialog.setModal(true);
+        dialog.setVisible(true);
     }
 }

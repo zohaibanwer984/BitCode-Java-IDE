@@ -39,7 +39,7 @@ import java.util.Properties;
  *
  * @author Muhammed Zohaib
  * @version 1.0
- * @since 2023-01-06
+ * @since 2024-01-06
  */
 public class PropertiesHandler {
     private Properties properties;

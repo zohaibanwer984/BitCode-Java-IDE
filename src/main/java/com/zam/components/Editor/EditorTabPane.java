@@ -6,8 +6,9 @@ import java.util.function.BiConsumer;
 
 import javax.swing.Icon;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.zam.ui.App;
 
@@ -16,7 +17,7 @@ import com.zam.ui.App;
  *
  * Responsibilities:
  * - Handling the creation and removal of code editor tabs.
- * - Associating each tab with a LineNumberPane and JTextPane.
+ * - Associating each tab with a CodeTextArea.
  * - Customizing tab appearance and behavior, including tab closing.
  *
  * Usage:
@@ -25,23 +26,23 @@ import com.zam.ui.App;
  *
  * Example:
  * ```java
- * EditorTabPane editorTabPane = new EditorTabPane(lineNumberPanes, mainApp);
+ * EditorTabPane editorTabPane = new EditorTabPane(mainApp);
  * editorTabPane.addCodeAreaTab("Untitled", icon, "tooltip", "Initial content");
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-11-29
  */
 public class EditorTabPane extends JTabbedPane {
 
-    private List<LineNumberPane> lineNumberPanes;
+    private List<CodeTextArea> codeAreaPanes;
     private App mainApp;
 
     /**
      * Constructor for the EditorTabPane.
      *
-     * @param parent      The main App instance.
+     * @param parent The main App instance.
      */
     public EditorTabPane(App parent) {
         this.mainApp = parent;
@@ -52,7 +53,7 @@ public class EditorTabPane extends JTabbedPane {
         UIManager.put("TabbedPane.closeHoverBackground", new Color(0, true));
         UIManager.put("TabbedPane.showTabSeparators", true);
 
-        this.lineNumberPanes = mainApp.lineNumberPanes;
+        this.codeAreaPanes = mainApp.codeAreaPanes;
 
         // Enable tab closing and set tab layout policy
         this.putClientProperty("JTabbedPane.tabClosable", true);
@@ -64,7 +65,7 @@ public class EditorTabPane extends JTabbedPane {
             if (getTitleAt(tabIndex).startsWith("untitled")) {
                 mainApp.menuBar.fileMenu.untitledCount--;
             }
-            lineNumberPanes.remove((int) tabIndex);
+            codeAreaPanes.remove((int) tabIndex);
             this.remove(tabIndex);
         });
     }
@@ -78,13 +79,36 @@ public class EditorTabPane extends JTabbedPane {
      * @param content The initial content of the code editor.
      */
     public void addCodeAreaTab(String title, Icon icon, String tooltip, String content) {
-        lineNumberPanes.add(new LineNumberPane(mainApp));
-        JTextPane codePane = lineNumberPanes.get(this.getTabCount()).codetextPane;
-        codePane.setFont(App.font);
-        codePane.setText(content);
-        LineNumberPane lineNumberPane = lineNumberPanes.get(lineNumberPanes.size() - 1);
-        this.insertTab(title, icon, lineNumberPane, tooltip, this.getTabCount());
-        this.setSelectedIndex(this.getTabCount() - 1);
-        codePane.requestFocus();
+        codeAreaPanes.add(new CodeTextArea(mainApp));
+        CodeTextArea codePanel = codeAreaPanes.get(codeAreaPanes.size() - 1);
+        this.insertTab(title, icon, codePanel, tooltip, this.getTabCount());
+        setSelectedIndex(this.getTabCount()-1);
+        codePanel.codeTextArea.setText(content);
+        codePanel.codeTextArea.discardAllEdits();
+        codePanel.codeTextArea.setCaretPosition(codePanel.codeTextArea.getDocument().getLength() - 2);
+        codePanel.codeTextArea.requestFocus();
+        addListener(codePanel);
+        this.updateUI();
+    }
+
+    /**
+     * Adds a document listener to track changes in the code editor.
+     *
+     * @param codeTextArea The CodeTextArea instance to attach the listener to.
+     */
+    private void addListener(CodeTextArea codeTextArea){
+        codeTextArea.codeTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                mainApp.tabbedEditorPane.setIconAt(App.currentTabIndex, App.jRedImage);
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                mainApp.tabbedEditorPane.setIconAt(App.currentTabIndex, App.jRedImage);
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                mainApp.tabbedEditorPane.setIconAt(App.currentTabIndex, App.jRedImage);
+            }
+        });
     }
 }
