@@ -58,7 +58,7 @@ public class App extends JFrame {
     public final Terminal terminalArea;
     public final MenuBar menuBar;
     // Public Resources
-    public PropertiesHandler properties = new PropertiesHandler(App.class.getResource("/App.properties").getFile());
+    public PropertiesHandler properties = new PropertiesHandler("./App.properties");
     public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
     public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
     public static int currentTabIndex = 0;
