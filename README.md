@@ -18,13 +18,13 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 ## Screenshots
 
 ### Tabbed Editor
-![Tabbed Editor](/screenshots/tabbed_editor.png)
+<img src="/screenshots/tabbed_editor.png" alt="Tabbed Editor" width="700" height="auto">
 
 ### Syntax And Themes
-![Syntax And Themes](/screenshots/Themes.png)
+<img src="/screenshots/Themes.png" alt="Syntax And Themes" width="700" height="auto">
 
 ### Code Compilation
-![Code Compilation](/screenshots/consoleOutput.png)
+<img src="/screenshots/consoleOutput.png" alt="Code Compilation" width="700" height="auto">
 
 # Getting Started
 
