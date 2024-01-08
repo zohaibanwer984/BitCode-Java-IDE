@@ -5,8 +5,9 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import com.zam.ui.App;
 
@@ -28,7 +29,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-12-12
  */
 public class SelectionMenuHandler extends JMenu {
@@ -67,25 +68,25 @@ public class SelectionMenuHandler extends JMenu {
     private void configureMenuItems() {
         // Add an action listener to the "Select All" menu item
         selectAllItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
-        selectAllItem.addActionListener(e -> selectAll(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        selectAllItem.addActionListener(e -> selectAll(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Deselect All" menu item
         deselectAllItem.setAccelerator(KeyStroke.getKeyStroke("ESCAPE"));
-        deselectAllItem.addActionListener(e -> deselectAll(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        deselectAllItem.addActionListener(e -> deselectAll(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Toggle Comment" menu item
         toggleLineCommentItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, ActionEvent.CTRL_MASK));
-        toggleLineCommentItem.addActionListener(e -> toggleComment(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        toggleLineCommentItem.addActionListener(e -> toggleComment(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Toggle Block Comment" menu item
         toggleBlockCommentItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK | ActionEvent.SHIFT_MASK));
-        toggleBlockCommentItem.addActionListener(e -> toggleBlockComment(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        toggleBlockCommentItem.addActionListener(e -> toggleBlockComment(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
     }
 
     /**
      * Selects the entire content of the current text area.
      */
-    public void selectAll(JTextPane codeTextArea) {
+    public void selectAll(RSyntaxTextArea codeTextArea) {
         codeTextArea.setSelectionStart(0);
         codeTextArea.setSelectionEnd(codeTextArea.getText().length());
         codeTextArea.requestFocus();
@@ -94,7 +95,7 @@ public class SelectionMenuHandler extends JMenu {
     /**
      * Deselects any selected text in the current text area.
      */
-    public void deselectAll(JTextPane codeTextArea) {
+    public void deselectAll(RSyntaxTextArea codeTextArea) {
         codeTextArea.setSelectionStart(codeTextArea.getSelectionEnd());
         codeTextArea.requestFocus();
     }
@@ -104,7 +105,7 @@ public class SelectionMenuHandler extends JMenu {
      * If the selected text is already commented, removes the "//" from each line.
      * If not commented, adds "//" at the beginning of each line.
      */
-    public void toggleComment(JTextPane codeTextArea) {
+    public void toggleComment(RSyntaxTextArea codeTextArea) {
         String selectedText = codeTextArea.getSelectedText();
         if (selectedText == null) {
             return;
@@ -125,7 +126,7 @@ public class SelectionMenuHandler extends JMenu {
      * If the selected text is already commented, removes the comment block from the text.
      * If not commented, adds block comment at the beginning and at the end of the text.
      */
-    public void toggleBlockComment(JTextPane codeTextArea) {
+    public void toggleBlockComment(RSyntaxTextArea codeTextArea) {
         String selectedText = codeTextArea.getSelectedText();
         if (selectedText == null) {
             return;

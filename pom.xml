@@ -33,6 +33,16 @@
       <artifactId>flatlaf-intellij-themes</artifactId>
       <version>3.2.5</version>
     </dependency>
+    <dependency>
+      <groupId>com.fifesoft</groupId>
+      <artifactId>rsyntaxtextarea</artifactId>
+      
+    </dependency>
+    <dependency>
+      <groupId>com.fifesoft</groupId>
+      <artifactId>autocomplete</artifactId>
+      <version>3.3.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -80,4 +90,21 @@
       </plugins>
     </pluginManagement>
   </build>
+
+
+  <dependencyManagement>
+  
+
+    <dependencies>
+    
+
+      <dependency>
+        <groupId>com.fifesoft</groupId>
+        <artifactId>rsyntaxtextarea</artifactId>
+        <version>3.3.0</version>
+      </dependency>
+
+    </dependencies>
+
+  </dependencyManagement>
 </project>

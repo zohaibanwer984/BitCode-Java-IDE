@@ -9,10 +9,10 @@ import java.nio.file.Paths;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
-import com.zam.components.editor.LineNumberPane;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import com.zam.ui.App;
 
 /**
@@ -32,7 +32,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-12-12
  */
 public class FileMenuHandler extends JMenu {
@@ -82,11 +82,11 @@ public class FileMenuHandler extends JMenu {
 
         // Add an action listener to the "Save" menu item
         saveFileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        saveFileItem.addActionListener(e -> saveFile(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        saveFileItem.addActionListener(e -> saveFile(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Save As" menu item
         saveAsFileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
-        saveAsFileItem.addActionListener(e -> saveAsFile(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane));
+        saveAsFileItem.addActionListener(e -> saveAsFile(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea));
 
         // Add an action listener to the "Exit" menu item
         exitProgramItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
@@ -106,8 +106,6 @@ public class FileMenuHandler extends JMenu {
             "    }\n" +
             "}";
         mainApp.tabbedEditorPane.addCodeAreaTab("untitled " + untitledCount, App.jRedImage, "untitled", code);
-        LineNumberPane lineNumberPane = mainApp.lineNumberPanes.get(mainApp.lineNumberPanes.size() - 1);
-        lineNumberPane.addSyntaxHighlighter(true);
         mainApp.menuBar.isCompiled = false;
         untitledCount++;
     }
@@ -157,11 +155,6 @@ public class FileMenuHandler extends JMenu {
                 fileContent
             );
 
-            // Get the LineNumberPane associated with the new tab
-            LineNumberPane lineNumberPane = mainApp.lineNumberPanes.get(mainApp.lineNumberPanes.size() - 1);
-
-            // Add syntax highlighting to the code area
-            lineNumberPane.addSyntaxHighlighter(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,7 +164,7 @@ public class FileMenuHandler extends JMenu {
      * Saves the content of the codeTextArea to a new file selected by the user.
      * The file is chosen using a file dialog.
      */
-    public void saveAsFile(JTextPane codeTextArea) {
+    public void saveAsFile(RSyntaxTextArea codeTextArea) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save As");
         int result = fileChooser.showSaveDialog(mainApp);
@@ -191,7 +184,7 @@ public class FileMenuHandler extends JMenu {
      * If the current file is untitled, prompts the user to choose a location to save the file.
      * Updates the editor's tab title, tooltip, and icon.
      */
-    public void saveFile(JTextPane codeTextArea) {
+    public void saveFile(RSyntaxTextArea codeTextArea) {
         String currentFileName = null, currentFileLocation = null;
         try {
             currentFileName = App.currentTabFile.getName();

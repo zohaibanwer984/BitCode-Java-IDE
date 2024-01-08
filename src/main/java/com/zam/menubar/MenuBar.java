@@ -1,7 +1,9 @@
 package com.zam.menubar;
 
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
+import com.zam.dialogboxes.AboutDialog;
 import com.zam.ui.App;
 
 /**
@@ -10,7 +12,7 @@ import com.zam.ui.App;
  * and running and compiling code.
 
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-11-29
  */
 public class MenuBar extends JMenuBar {
@@ -24,6 +26,7 @@ public class MenuBar extends JMenuBar {
     public RunMenuHandler runMenu;
     public boolean isCompiled = false;
 
+    private JMenuItem aboutItem;
     /**
      * Creates a new instance of the `MenuBar`.
      *
@@ -50,6 +53,13 @@ public class MenuBar extends JMenuBar {
         // Create the Run tab
         runMenu = new RunMenuHandler("Run", mainApp);
         add(runMenu);
+
+        aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(e -> {
+            AboutDialog aboutDialog = new AboutDialog(mainApp);
+            aboutDialog.setVisible(true);
+        });
+        add(aboutItem);
         
     }
 

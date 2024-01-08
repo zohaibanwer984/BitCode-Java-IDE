@@ -7,8 +7,8 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 
 ## Features
 
-- **Bulit-in Console:** Output of files will be run insice the IDE
-- **Syntax Highlighting:** Supports syntax highlighting for Java code.
+- **Bulit-in Console:** Output of files will be run inside the IDE
+- **Syntax Highlighting:** Supports syntax highlighting for Java code using the Rsyntaxtextarea library.
 - **Code Compilation:** Compiles Java code using the bundled OpenJDK.
 - **Code Execution:** Runs compiled Java programs.
 - **Undo/Redo:** Provides undo and redo functionality for text edits.
@@ -18,13 +18,13 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 ## Screenshots
 
 ### Tabbed Editor
-![Tabbed Editor](/screenshots/tabbed_editor.png)
+<img src="/screenshots/tabbed_editor.png" alt="Tabbed Editor" width="700" height="auto">
 
-### Syntax Highlighting
-![Syntax Highlighting](/screenshots/syntax_highlighting.png)
+### Syntax And Themes
+<img src="/screenshots/Themes.png" alt="Syntax And Themes" width="700" height="auto">
 
 ### Code Compilation
-![Code Compilation](/screenshots/code_compilation.png)
+<img src="/screenshots/consoleOutput.png" alt="Code Compilation" width="700" height="auto">
 
 # Getting Started
 
@@ -58,9 +58,8 @@ Contributions, bug reports, and feature requests are welcome! See the [issues](h
 
 ## Thanks
 
-Special thanks to [FlatLaf](https://github.com/JFormDesigner/FlatLaf) for providing the FlatLaf theme library, enhancing the visual appeal of BitCode IDE.
+Special thanks to [FlatLaf](https://github.com/JFormDesigner/FlatLaf) for providing the FlatLaf theme library, enhancing the visual appeal of BitCode IDE. Additionally, thanks to [Rsyntaxtextarea](https://github.com/bobbylight/RSyntaxTextArea) for enabling syntax highlighting in the textarea.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-

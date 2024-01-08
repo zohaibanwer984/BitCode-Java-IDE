@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import com.zam.components.terminal.Terminal;
 import com.zam.ui.App;
 import com.zam.utils.CompileFile;
@@ -34,7 +36,7 @@ import com.zam.utils.RunFile;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-12-12
  */
 public class RunMenuHandler extends JMenu {
@@ -69,7 +71,7 @@ public class RunMenuHandler extends JMenu {
     private void configureMenuItems() {
         // Add an action listener to the "Compile" menu item
         compileItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
-        compileItem.addActionListener(e -> compileCode(mainApp.lineNumberPanes.get(App.currentTabIndex).codetextPane, mainApp.terminalArea));
+        compileItem.addActionListener(e -> compileCode(mainApp.codeAreaPanes.get(App.currentTabIndex).codeTextArea, mainApp.terminalArea));
 
         // Add an action listener to the "Run" menu item
         runItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
@@ -107,7 +109,7 @@ public class RunMenuHandler extends JMenu {
      * Compiles the code in the code area in a separate thread.
      * Displays compilation output in the terminal text area.
      */
-    public void compileCode(JTextPane codeTextArea, Terminal terminal) {
+    public void compileCode(RSyntaxTextArea codeTextArea, Terminal terminal) {
         CompileFile compiler = new CompileFile(App.currentTabFile, mainApp);
         Thread compileThread = new Thread(() -> {
             codeTextArea.setEnabled(false);

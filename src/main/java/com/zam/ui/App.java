@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +17,12 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.zam.components.editor.CodeTextArea;
 import com.zam.components.editor.EditorTabPane;
-import com.zam.components.editor.LineNumberPane;
+// import com.zam.components.editor.LineNumberPane;
 import com.zam.components.terminal.Terminal;
 import com.zam.menubar.MenuBar;
-import com.zam.utils.SyntaxColorManager;
+import com.zam.utils.PropertiesHandler;
 
 /**
  * The main class representing the BitCode IDE application.
@@ -39,7 +39,7 @@ import com.zam.utils.SyntaxColorManager;
  * - Providing the main method to launch the application.
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.2
  * @since 2023-11-29
  */
 public class App extends JFrame {
@@ -49,32 +49,16 @@ public class App extends JFrame {
     private static final double SCREEN_HEIGHT_RATIO = 0.65;
     private static final int DEFAULT_FONT_SIZE = 16;
 
-    // Static block for initializing application properties
-    static {
-        // This static block runs at the very beginning of the app, even before the main method.
-        try {
-            File file = new File(App.class.getProtectionDomain().getCodeSource()
-                    .getLocation().toURI().getPath());
-            String basePath = file.getParent();
-            // Overrides the existing value of "user.dir"
-            System.getProperties().put("user.dir", basePath);
-        } catch (URISyntaxException ex) {
-            // Log the error
-            ex.printStackTrace();
-        }
-    }
-
     // Private Componnets
     private final JSplitPane splitPane;
-    // static final String currentPath = System.getProperty("user.dir");
     
     // Public Componnets
-    public final List<LineNumberPane> lineNumberPanes;
+    public final List<CodeTextArea> codeAreaPanes;
     public final EditorTabPane tabbedEditorPane;
     public final Terminal terminalArea;
     public final MenuBar menuBar;
-    
     // Public Resources
+    public PropertiesHandler properties = new PropertiesHandler("./App.properties");
     public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
     public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
     public static int currentTabIndex = 0;
@@ -97,8 +81,9 @@ public class App extends JFrame {
         setSize(new Dimension((int) (screenSize.width * SCREEN_WIDTH_RATIO),
                 (int) (screenSize.height * SCREEN_HEIGHT_RATIO)));
         setFont(font);
+        UIManager.put("Consolas", font);
 
-        lineNumberPanes = new ArrayList<>();
+        codeAreaPanes = new ArrayList<>();
         tabbedEditorPane = new EditorTabPane(this);
 
         // Create the terminal area
@@ -133,7 +118,8 @@ public class App extends JFrame {
         });
 
         // Apply look and feel and document listener to codeArea and syntaxEditorKit
-        switchLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+        String themeName = this.properties.getProperty("lookAndFeel");
+        switchLookAndFeel(themeName);
 
         // Create a new tab in initiation
         if (args.length() > 0) {
@@ -155,14 +141,9 @@ public class App extends JFrame {
     public void switchLookAndFeel(String theme) {
         try {
             UIManager.setLookAndFeel(theme);
-            SyntaxColorManager.setColors(theme);
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception ex) {
             System.err.println("Failed to set look and feel: " + theme);
-        }
-        // Re-register all the document listeners with the codePanes
-        for (LineNumberPane lineNumPane : lineNumberPanes) {
-            lineNumPane.addSyntaxHighlighter(false);
         }
     }
 }
