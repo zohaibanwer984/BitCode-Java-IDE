@@ -20,11 +20,11 @@ BitCode IDE is a lightweight Java Integrated Development Environment designed fo
 ### Tabbed Editor
 ![Tabbed Editor](/screenshots/tabbed_editor.png)
 
-### Syntax Highlighting
-![Syntax Highlighting](/screenshots/syntax_highlighting.png)
+### Syntax And Themes
+![Syntax And Themes](/screenshots/Themes.png)
 
 ### Code Compilation
-![Code Compilation](/screenshots/code_compilation.png)
+![Code Compilation](/screenshots/consoleOutput.png)
 
 # Getting Started
 
