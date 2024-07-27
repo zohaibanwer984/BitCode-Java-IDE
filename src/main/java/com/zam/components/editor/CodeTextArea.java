@@ -69,8 +69,8 @@ public class CodeTextArea extends JPanel {
         }
 
         // Set code area font and gutter font
-        codeTextArea.setFont(UIManager.getFont("Consolas"));
-        setGutterFont(UIManager.getFont("Consolas"));
+        codeTextArea.setFont(UIManager.getFont("AppFont").deriveFont(mainApp.textAttributes));
+        setGutterFont(UIManager.getFont("AppFont"));
 
         // Configure various code editor properties
         codeTextArea.setAutoIndentEnabled(true);

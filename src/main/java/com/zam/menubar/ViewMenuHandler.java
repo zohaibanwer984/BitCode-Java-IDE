@@ -82,8 +82,10 @@ public class ViewMenuHandler extends JMenu {
      * Increases the font size of the code area by 2.
      */
     public void increaseFontSize(RSyntaxTextArea codeTextArea) {
-        Font font = new Font(codeTextArea.getFont().getName(), Font.PLAIN, codeTextArea.getFont().getSize() + 2);
+        int fontSize = codeTextArea.getFont().getSize() + 2;
+        Font font = new Font(codeTextArea.getFont().getName(), Font.PLAIN, fontSize);
         codeTextArea.setFont(font);
+        mainApp.properties.setIntegerProperty("fontSize", fontSize);
     }
 
     /**
@@ -93,6 +95,8 @@ public class ViewMenuHandler extends JMenu {
         int newSize = Math.max(6, codeTextArea.getFont().getSize() - 2);
         Font font = new Font(codeTextArea.getFont().getName(), Font.PLAIN, newSize);
         codeTextArea.setFont(font);
+        codeTextArea.setFont(font);
+        mainApp.properties.setIntegerProperty("fontSize", newSize);
     }
 
     /**
