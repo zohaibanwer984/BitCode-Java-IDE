@@ -31,7 +31,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0.2
+ * @version 1.0.3
  * @since 2023-12-12
  */
 public class ViewMenuHandler extends JMenu {

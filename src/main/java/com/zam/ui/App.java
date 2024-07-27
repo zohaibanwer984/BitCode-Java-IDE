@@ -42,7 +42,7 @@ import com.zam.utils.PropertiesHandler;
  * - Providing the main method to launch the application.
  *
  * @author Muhammed Zohaib
- * @version 1.0.2
+ * @version 1.0.3
  * @since 2023-11-29
  */
 public class App extends JFrame {

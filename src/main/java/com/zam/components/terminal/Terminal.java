@@ -39,7 +39,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib Anwer
- * @version 1.0
+ * @version 1.0.3
  * @since 2023-12-05
  */
 public class Terminal extends JPanel {

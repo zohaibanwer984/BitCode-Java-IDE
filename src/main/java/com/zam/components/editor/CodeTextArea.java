@@ -33,7 +33,7 @@ import com.zam.utils.JavaCompletionProvider;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0.2.0
+ * @version 1.0.3
  * @since 2024-01-06
  */
 public class CodeTextArea extends JPanel {
