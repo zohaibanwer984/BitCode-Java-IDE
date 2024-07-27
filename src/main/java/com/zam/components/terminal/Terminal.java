@@ -2,6 +2,7 @@ package com.zam.components.terminal;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
@@ -38,7 +39,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib Anwer
- * @version 1.0
+ * @version 1.0.3
  * @since 2023-12-05
  */
 public class Terminal extends JPanel {
@@ -60,7 +61,7 @@ public class Terminal extends JPanel {
 
         // Initialize text area for terminal output
         consolArea = new JTextArea("BitCode Terminal Errors And Code will be executed here..\n>>");
-        consolArea.setFont(App.font);
+        consolArea.setFont(new Font("Consolas", 0, 14));
         lastCaretPos = consolArea.getCaretPosition();
         consolArea.setCaretColor(Color.WHITE);
         consolArea.setForeground(Color.WHITE);

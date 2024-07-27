@@ -4,9 +4,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.font.TextAttribute;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -39,7 +42,7 @@ import com.zam.utils.PropertiesHandler;
  * - Providing the main method to launch the application.
  *
  * @author Muhammed Zohaib
- * @version 1.0.2
+ * @version 1.0.3
  * @since 2023-11-29
  */
 public class App extends JFrame {
@@ -47,7 +50,6 @@ public class App extends JFrame {
     // Constants
     private static final double SCREEN_WIDTH_RATIO = 0.5;
     private static final double SCREEN_HEIGHT_RATIO = 0.65;
-    private static final int DEFAULT_FONT_SIZE = 16;
 
     // Private Componnets
     private final JSplitPane splitPane;
@@ -57,13 +59,14 @@ public class App extends JFrame {
     public final EditorTabPane tabbedEditorPane;
     public final Terminal terminalArea;
     public final MenuBar menuBar;
+    public Font font;
     // Public Resources
+    public final Map<TextAttribute, Object> textAttributes;
     public PropertiesHandler properties = new PropertiesHandler("./App.properties");
     public static ImageIcon jBlueImage = new ImageIcon(App.class.getResource("/icons/JBlue.png"));
     public static ImageIcon jRedImage = new ImageIcon(App.class.getResource("/icons/JRed.png"));
     public static int currentTabIndex = 0;
     public static File currentTabFile = new File("");
-    public static final Font font = new Font("Consolas", 0, DEFAULT_FONT_SIZE);
     public final String jdkPath;
     /**
      * Constructor for the BitCode IDE application.
@@ -80,8 +83,12 @@ public class App extends JFrame {
         setIconImage(icon);
         setSize(new Dimension((int) (screenSize.width * SCREEN_WIDTH_RATIO),
                 (int) (screenSize.height * SCREEN_HEIGHT_RATIO)));
+        textAttributes = new HashMap<>();
+        textAttributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
+		textAttributes.put(TextAttribute.LIGATURES, TextAttribute.LIGATURES_ON);
+        font = new Font(this.properties.getProperty("FontFamily"), 0, this.properties.getIntegerProperty("fontSize"));
         setFont(font);
-        UIManager.put("Consolas", font);
+        UIManager.put("AppFont", font);
 
         codeAreaPanes = new ArrayList<>();
         tabbedEditorPane = new EditorTabPane(this);

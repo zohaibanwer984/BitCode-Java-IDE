@@ -2,6 +2,7 @@ package com.zam.dialogboxes;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.GridBagConstraints;
@@ -39,7 +40,7 @@ import com.zam.ui.App;
  * - Providing an OK button to confirm changes and a Cancel button to revert changes.
  *
  * @author Muhammed Zohaib
- * @version 1.0.2
+ * @version 1.0.3
  * @since 2024-01-07
  */
 public class ThemeChanger extends JDialog {
@@ -51,6 +52,8 @@ public class ThemeChanger extends JDialog {
     private final JPanel optionsPanel;
     private final JLabel themeLabel;
     private final JComboBox<String> themeComboBox;
+    private final JLabel fontLabel;
+    private final JComboBox<String> fontComboBox;
     private final JLabel fontSizeLabel;
     private final SpinnerNumberModel model;
     private final JSpinner spinner;
@@ -69,7 +72,6 @@ public class ThemeChanger extends JDialog {
     private String currentLAF;
     private String newLAF;
     private String editorTheme;
-
     // Reference to the main application
     private App mainApp;
 
@@ -99,8 +101,13 @@ public class ThemeChanger extends JDialog {
         themeLabel = new JLabel();
         String[] themes = {"Flat Light", "Flat Dark", "Solarized Light", "Solarized Dark", "Monokai Pro", "Space Grey"}; 
         themeComboBox = new JComboBox<String>(themes);
+        fontLabel = new JLabel();
+        // Get all available fonts
+        String[] fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        fontComboBox = new JComboBox<String>(fontNames);
+        fontComboBox.setSelectedItem(UIManager.getFont("AppFont").getName());
         fontSizeLabel = new JLabel();
-        model = new SpinnerNumberModel(UIManager.getFont("Consolas").getSize(), 6, 48, 1);
+        model = new SpinnerNumberModel(UIManager.getFont("AppFont").getSize(), 6, 48, 1);
         model.addChangeListener(e -> fontSize());
         spinner = new JSpinner(model);
         featuresPanel = new JPanel();
@@ -125,6 +132,7 @@ public class ThemeChanger extends JDialog {
         cancelButton = new JButton();
         cancelButton.addActionListener(e -> cancelButtonFunc());
         themeComboBox.addActionListener(e -> changeTheme());
+        fontComboBox.addActionListener(e -> setUIFont());
 
         setTitle("Editor Settings");
         var contentPane = getContentPane();
@@ -142,7 +150,7 @@ public class ThemeChanger extends JDialog {
         "       Use a for loop to print the variable\n" +
         "       multiple times\n" +
         "       */\n" +
-        "       for (int i = 0; i < x; i++) {\n" +
+        "       for (int i = 0; i <= x; i++) {\n" +
         "           System.out.println(\"x = \" + x);\n" +
         "       }\n" +
         "   }\n" +
@@ -153,7 +161,7 @@ public class ThemeChanger extends JDialog {
         syntaxTextArea.setCodeFoldingEnabled(mainApp.properties.getBooleanProperty("CodeFolding"));
         scrollPane.setLineNumbersEnabled(mainApp.properties.getBooleanProperty("LineNumbers"));
         syntaxTextArea.setLineWrap(mainApp.properties.getBooleanProperty("LineWrap"));
-        syntaxTextArea.setFont(UIManager.getFont("Consolas"));
+        syntaxTextArea.setFont(UIManager.getFont("AppFont"));
         syntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
 
         optionsPanel.setBorder(new TitledBorder(null, "Options:", TitledBorder.LEADING, TitledBorder.ABOVE_TOP,
@@ -167,14 +175,22 @@ public class ThemeChanger extends JDialog {
         optionsPanel.add(themeComboBox, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0,
                                                                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                                                                new Insets(0, 0, 5, 5), 0, 0));
-                                                               
-                                                               fontSizeLabel.setText("Font Size:");
-                                                               optionsPanel.add(fontSizeLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+
+        fontLabel.setText("Font :");
+        optionsPanel.add(fontLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+                                                            GridBagConstraints.WEST, GridBagConstraints.NONE,
+                                                            new Insets(0, 0, 5, 5), 0, 0));
+        optionsPanel.add(fontComboBox, new GridBagConstraints(1, 2, 2, 1, 0.0, 0.0,
+                                                                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                                                                new Insets(0, 0, 5, 5), 0, 0));
+
+        fontSizeLabel.setText("Font Size:");
+        optionsPanel.add(fontSizeLabel, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
                                                                GridBagConstraints.WEST, GridBagConstraints.NONE,
                                                                new Insets(0, 0, 5, 5), 0, 0));
-                                                               optionsPanel.add(spinner, new GridBagConstraints(1, 2, 2, 1, 0.0, 0.0,
-                                                               GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                                                               new Insets(0, 0, 5, 5), 0, 0));
+        optionsPanel.add(spinner, new GridBagConstraints(1, 3, 2, 1, 0.0, 0.0,
+                                                        GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                                                        new Insets(0, 0, 5, 5), 0, 0));
 
         featuresPanel.setBorder(new TitledBorder(null, "Features:", TitledBorder.LEADING, TitledBorder.BELOW_TOP,
                                                  new Font("Segoe UI", Font.BOLD, 12)));
@@ -205,7 +221,7 @@ public class ThemeChanger extends JDialog {
                                                                    GridBagConstraints.WEST, GridBagConstraints.NONE,
                                                                    new Insets(0, 0, 5, 5), 0, 0));
 
-        optionsPanel.add(featuresPanel, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0,
+        optionsPanel.add(featuresPanel, new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0,
                                                                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                                                                new Insets(0, 0, 5, 5), 0, 0));
 
@@ -231,15 +247,22 @@ public class ThemeChanger extends JDialog {
         setSize(600, 400);
         setLocationRelativeTo(getOwner());
     }
+    private void setUIFont(){
+        String selection = (String) fontComboBox.getSelectedItem();
+        int currentVal = (int) spinner.getValue();
+        Font font = new Font(selection, Font.PLAIN, currentVal);        
+		syntaxTextArea.setFont(font.deriveFont(mainApp.textAttributes));
+        scrollPane.getGutter().setLineNumberFont(font);
+        UIManager.put("AppFont", font);
+    }
     /**
      * Handles changes in font size.
      */
     private void fontSize() {
         int currentVal = (int) spinner.getValue();
         Font font = syntaxTextArea.getFont().deriveFont(syntaxTextArea.getFont().getStyle(), currentVal);
-        syntaxTextArea.setFont(font);
+        syntaxTextArea.setFont(font.deriveFont(mainApp.textAttributes));
         scrollPane.getGutter().setLineNumberFont(font);
-        UIManager.put("Consolas", font); // writting it to properties
     }
     /**
      * Handles the change of the selected theme.
@@ -283,8 +306,9 @@ public class ThemeChanger extends JDialog {
                 SwingUtilities.updateComponentTreeUI(this);
                 Theme theme = Theme.load(getClass().getResourceAsStream("/SyntaxThemes/"+ editorTheme +".xml"));
                 theme.apply(syntaxTextArea); // its reset the font too!
-                syntaxTextArea.setFont(UIManager.getFont("Consolas")); //lazy Fix to put the font back :P
-                scrollPane.getGutter().setLineNumberFont(UIManager.getFont("Consolas"));
+                Font font = (Font) UIManager.getFont("AppFont");
+                syntaxTextArea.setFont(font.deriveFont(mainApp.textAttributes)); //lazy Fix to put the font back :P
+                scrollPane.getGutter().setLineNumberFont(UIManager.getFont("AppFont"));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -344,8 +368,8 @@ public class ThemeChanger extends JDialog {
     private void okButtonFunc() {
         FlatLaf.updateUI(); //update for the whole UI
         Theme theme = new Theme(syntaxTextArea);
-        Font font =  UIManager.getFont("Consolas");
-
+        
+        Font font = ((Font) UIManager.get("AppFont")).deriveFont(mainApp.textAttributes);
         for (int i = 0; i < mainApp.tabbedEditorPane.getTabCount(); i++) {
             theme.apply(mainApp.codeAreaPanes.get(i).codeTextArea);
             mainApp.codeAreaPanes.get(i).codeTextArea.setFont(font);
@@ -364,6 +388,7 @@ public class ThemeChanger extends JDialog {
         mainApp.properties.setBooleanProperty("LineNumbers", lineNumbersCheckBox.isSelected());
         mainApp.properties.setBooleanProperty("LineWrap", lineWrapCheckBox.isSelected());
         mainApp.properties.setIntegerProperty("fontSize", font.getSize());
+        mainApp.properties.setProperty("FontFamily", font.getName());
         this.dispose();
     }
 }
