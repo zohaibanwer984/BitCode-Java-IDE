@@ -31,7 +31,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0.2
+ * @version 1.0.2.1
  * @since 2023-11-29
  */
 public class EditorTabPane extends JTabbedPane {
