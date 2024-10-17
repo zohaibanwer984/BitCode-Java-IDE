@@ -9,7 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
-import com.zam.components.Editor.CodeTextArea;
+
+import com.zam.components.editor.CodeTextArea;
 import com.zam.ui.App;
 
 /**

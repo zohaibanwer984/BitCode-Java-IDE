@@ -1,4 +1,4 @@
-package com.zam.components.Editor;
+package com.zam.components.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
