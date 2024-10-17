@@ -1,4 +1,4 @@
-package com.zam.components.editor;
+package com.zam.components.Editor;
 
 import java.awt.Color;
 import java.util.List;

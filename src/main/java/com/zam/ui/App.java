@@ -20,8 +20,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.zam.components.editor.CodeTextArea;
-import com.zam.components.editor.EditorTabPane;
+import com.zam.components.Editor.CodeTextArea;
+import com.zam.components.Editor.EditorTabPane;
 // import com.zam.components.editor.LineNumberPane;
 import com.zam.components.terminal.Terminal;
 import com.zam.menubar.MenuBar;
