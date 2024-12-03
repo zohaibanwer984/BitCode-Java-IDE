@@ -41,7 +41,7 @@ import com.zam.utils.PropertiesHandler;
  * - Providing the main method to launch the application.
  *
  * @author Muhammed Zohaib
- * @version 1.0.3
+ * @version 1.0.4
  * @since 2023-11-29
  */
 public class App extends JFrame {
@@ -49,6 +49,7 @@ public class App extends JFrame {
     // Constants
     private static final double SCREEN_WIDTH_RATIO = 0.5;
     private static final double SCREEN_HEIGHT_RATIO = 0.65;
+    public static final String APP_VERSION = "1.0.4";
 
     // Private Componnets
     private final JSplitPane splitPane;
