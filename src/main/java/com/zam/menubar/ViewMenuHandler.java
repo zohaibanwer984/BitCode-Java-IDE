@@ -7,11 +7,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.SwingWorker;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import com.zam.dialogboxes.ThemeChanger;
 import com.zam.ui.App;
+import com.zam.utils.UpdateChecker;
 
 /**
  * Custom menu handler for the View menu in BitCode IDE.
@@ -31,7 +33,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0.3
+ * @version 1.0.4
  * @since 2023-12-12
  */
 public class ViewMenuHandler extends JMenu {
@@ -39,6 +41,7 @@ public class ViewMenuHandler extends JMenu {
     private final JMenuItem increaseFontSizeItem = new JMenuItem("Increase Font Size");
     private final JMenuItem decreaseFontSizeItem = new JMenuItem("Decrease Font Size");
     private final JMenuItem changeThemeItem = new JMenuItem("Change Theme");
+    private final JMenuItem checkUpdateItem = new JMenuItem("Check for Update");
 
     final private App mainApp;
 
@@ -56,6 +59,8 @@ public class ViewMenuHandler extends JMenu {
         add(increaseFontSizeItem);
         add(decreaseFontSizeItem);
         add(changeThemeItem);
+        addSeparator(); // Add a separator line
+        add(checkUpdateItem);
 
         // Add action listeners and accelerators
         configureMenuItems();
@@ -76,6 +81,19 @@ public class ViewMenuHandler extends JMenu {
         // Add an action listener to the "Change Theme" menu item
         changeThemeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
         changeThemeItem.addActionListener(e -> openThemeDialog());
+        
+        // Add an action listener to the "Check for Update" menu item
+        checkUpdateItem.addActionListener(e -> {
+            SwingWorker<Void, Void> worker = new SwingWorker<>() {
+                @Override
+                protected Void doInBackground() {
+                    UpdateChecker.checkForUpdate(mainApp);
+                    return null;
+                }
+            };
+            worker.execute();
+        });
+
     }
 
     /**

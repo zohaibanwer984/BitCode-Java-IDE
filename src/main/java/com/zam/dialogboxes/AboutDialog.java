@@ -35,7 +35,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0
+ * @version 1.0.4
  * @since 2024-01-07
  */
 public class AboutDialog extends JDialog {
@@ -70,7 +70,7 @@ public class AboutDialog extends JDialog {
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 
-        titleLabel.setText("<html><h1>BitCode</h1>Version 1.0.2.0</html>");
+        titleLabel.setText("<html><h1>BitCode</h1>Version "+ App.APP_VERSION +"</html>");
         titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getSize() + 5f));
         contentPane.add(titleLabel, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
