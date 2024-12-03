@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 
 import javax.swing.Icon;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -31,7 +32,7 @@ import com.zam.ui.App;
  * ```
  *
  * @author Muhammed Zohaib
- * @version 1.0.2.1
+ * @version 1.0.4
  * @since 2023-11-29
  */
 public class EditorTabPane extends JTabbedPane {
@@ -61,9 +62,14 @@ public class EditorTabPane extends JTabbedPane {
 
         // Set the tab close callback to handle tab removal
         this.putClientProperty("JTabbedPane.tabCloseCallback", (BiConsumer<JTabbedPane, Integer>) (tabbedPane, tabIndex) -> {
+            
             // Close tab logic
-            if (getTitleAt(tabIndex).startsWith("untitled")) {
+            if (tabbedPane.getTitleAt(tabIndex).startsWith("untitled")) {
                 mainApp.menuBar.fileMenu.untitledCount--;
+            }
+            if (isLastTab()){
+                // replace by adding new tab last tab.. previous tab will be removed by this call back
+                mainApp.menuBar.fileMenu.newFile();
             }
             codeAreaPanes.remove((int) tabIndex);
             this.remove(tabIndex);
@@ -88,7 +94,7 @@ public class EditorTabPane extends JTabbedPane {
         codePanel.codeTextArea.setCaretPosition(codePanel.codeTextArea.getDocument().getLength() - 2);
         codePanel.codeTextArea.requestFocus();
         addListener(codePanel);
-        this.updateUI();
+        SwingUtilities.invokeLater(() -> this.updateUI());
     }
 
     /**
@@ -110,5 +116,9 @@ public class EditorTabPane extends JTabbedPane {
                 mainApp.tabbedEditorPane.setIconAt(App.currentTabIndex, App.jRedImage);
             }
         });
+    }
+
+    private Boolean isLastTab() {
+        return this.getTabCount() <= 1;
     }
 }
