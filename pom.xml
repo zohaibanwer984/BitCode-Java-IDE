@@ -6,7 +6,7 @@
 
   <groupId>com.zam</groupId>
   <artifactId>bitcode</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 
   <name>bitcode</name>
 
@@ -31,12 +31,12 @@
     <dependency>
       <groupId>com.formdev</groupId>
       <artifactId>flatlaf-intellij-themes</artifactId>
-      <version>3.5</version>
+      <version>3.5.2</version>
     </dependency>
     <dependency>
       <groupId>com.fifesoft</groupId>
       <artifactId>rsyntaxtextarea</artifactId>
-      <version>3.5.0</version>
+      <version>3.5.2</version>
     </dependency>
     <dependency>
       <groupId>com.fifesoft</groupId>
